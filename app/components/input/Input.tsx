@@ -13,9 +13,9 @@ import {
     type: string;
     autoComplete:string;
     required: boolean;
-    register: UseFormRegister<FieldValues>,
-    errors: FieldErros,
-    disabled?:boolean,
+    register: UseFormRegister<FieldValues>;
+    errors: FieldErros;
+    disabled?:boolean;
  }
 
 const Input: React.FC<InputProps> = ({
@@ -42,7 +42,7 @@ const Input: React.FC<InputProps> = ({
                 {label}
             </label>
             <div className="mt-2">
-                <Input
+                <input
                 id={id}
                 type={type}
                 autoComplete={id}
