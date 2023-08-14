@@ -1,0 +1,28 @@
+stages:
+  - development
+  - test
+  - build
+  
+install node:
+  image: node:18.17.1
+  stage: development
+  script:
+    - npm ci
+    - npm install
+build the application:
+  image: node:18.17.1
+  stage: build
+  script:
+    - npx next telemetry status
+    - npx next telemetry disable
+    - npm ci
+    - npm install
+    - npx next telemetry status
+    - npx next telemetry disable
+    - npm run build
+    - npx next telemetry status
+    - npx next telemetry disable
+  artifacts:
+    paths:
+      - .next
+      
