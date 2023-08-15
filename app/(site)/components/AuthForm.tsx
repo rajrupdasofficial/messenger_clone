@@ -4,17 +4,27 @@ import AuthSocialButton from "@/app/components/AuthSocialButton";
 import Button from "@/app/components/Button";
 import Input from "@/app/components/input/Input";
 import axios from "axios";
-import { signIn } from "next-auth/react";
-import { useCallback, useState } from "react";
+import { signIn, useSession } from "next-auth/react";
+import { useRouter } from "next/navigation"; //new nextjs 13 features import useRouter for next/navigation
+import { useCallback, useEffect, useState } from "react";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import {BsGithub, BsGoogle, BsTwitch} from 'react-icons/bs'
+
  // client component not server component
 type Variant = 'LOGIN' | 'REGISTER';
 
 const AuthForm = () => {
+    const session = useSession();
+    const router = useRouter();
     const [variant, setVariant] = useState<Variant>('LOGIN');
     const [isLoading, setIsLoading] = useState(false);
+
+    useEffect(()=>{
+        if (session?.status === 'authenticated'){
+            router.push('/users');
+        }
+    },[session?.status,router]);
 
     const toggleVariant = useCallback(()=>{
         if (variant === 'LOGIN'){
@@ -45,6 +55,7 @@ const AuthForm = () => {
             axios.post('/api/register', data)
             .catch(() => toast.error("Something went wrong"))
             .finally(() => setIsLoading(false))
+            .then(()=> signIn('credentials', data))
         }
         if (variant === 'LOGIN'){
             //NextAuth Singin
@@ -60,6 +71,7 @@ const AuthForm = () => {
 
                 if(callback?.ok && !callback?.error){
                     toast.success('Logged In')
+                    router.push('/users');
                 }
             })
             .finally(() => setIsLoading(false))
@@ -73,7 +85,8 @@ const AuthForm = () => {
                 toast.error("Invalid Credentials");
             }
             if (callback?.ok && !callback?.error){
-                toast.success("Logged in")
+                toast.success("Logged in");
+                router.push('/users');
             }
         })
         .finally(() => setIsLoading(false));
