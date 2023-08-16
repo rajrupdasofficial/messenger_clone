@@ -118,27 +118,24 @@ const AuthForm = () => {
             >
                 {variant === "REGISTER" && (
                 <Input 
-                id="name" 
-                label="Name" 
-                register={register}
-                errors={errors}
-                disabled={isLoading}
-                />
+                            id="name"
+                            label="Name"
+                            register={register}
+                            errors={errors}
+                            disabled={isLoading} type={""} required={false}                />
                 )}
                  <Input 
-                id="email" 
-                label="Email address" 
-                register={register}
-                errors={errors}
-                disabled={isLoading}
-                />
+                        id="email"
+                        label="Email address"
+                        register={register}
+                        errors={errors}
+                        disabled={isLoading} type={""} required={false}                />
                 <Input 
-                id="password" 
-                label="Password" 
-                register={register}
-                errors={errors}
-                disabled={isLoading}
-                />
+                        id="password"
+                        label="Password"
+                        register={register}
+                        errors={errors}
+                        disabled={isLoading} type={""} required={false}                />
                 <div>
                     <Button
                     disabled={isLoading}
