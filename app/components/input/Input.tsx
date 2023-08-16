@@ -2,7 +2,7 @@
 
 import clsx from "clsx";
 import { 
-    FieldErros,
+    FieldErrors,
     FieldValues,
     UseFormRegister,
  } from "react-hook-form";
@@ -13,7 +13,7 @@ import {
     type: string;
     required: boolean;
     register: UseFormRegister<FieldValues>;
-    errors: FieldErros;
+    errors: FieldErrors;
     disabled?:boolean;
  }
 
