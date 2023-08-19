@@ -45,7 +45,7 @@ const DesktopItem: React.FC<DesktopItemProps> = ({
             >
             <span>
                 <Icon className="h-6 w-6 shrink-0" />
-                {label}
+                <span className="sr-only">{label}</span>
             </span>
             </Link>
        </li>
